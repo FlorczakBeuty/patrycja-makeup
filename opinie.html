@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Opinie klientek Patrycji Florczak oraz formularz dodawania własnej oceny.">
   <title>Opinie | Patrycja Florczak</title>
-  <link rel="stylesheet" href="styles.css?v=20260704-1">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260704-3">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-config.js?v=20260704-3" defer></script>
+  <script src="script.js?v=20260704-3" defer></script>
 </head>
 <body class="reviews-page">
   <div class="page-glow page-glow--one" aria-hidden="true"></div>
@@ -66,7 +68,7 @@
             <textarea id="review-text" name="text" maxlength="600" rows="6" placeholder="Napisz, co podobało Ci się najbardziej..." required></textarea>
           </div>
 
-          <p class="privacy-note">Podajesz tylko imię - bez adresu e-mail i numeru telefonu.</p>
+          <p class="privacy-note">Podajesz tylko imię - bez adresu e-mail i numeru telefonu. Opinia będzie widoczna po zatwierdzeniu.</p>
           <button class="button button--primary" type="submit">Dodaj opinię <span aria-hidden="true">↗</span></button>
           <p class="form-status" id="review-status" aria-live="polite"></p>
         </form>

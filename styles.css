@@ -121,7 +121,8 @@ em { color: var(--pink); font-weight: 400; }
 .round-stamp { position: absolute; z-index: 3; left: -39px; top: -32px; width: 91px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; color: var(--purple); background: #fff; box-shadow: 0 14px 35px rgba(87,42,80,.15); pointer-events: none; }
 .round-stamp span { position: absolute; inset: 8px; border: 1px dashed rgba(113,61,119,.42); border-radius: 50%; }
 .round-stamp span::before { content: "BEAUTY"; position: absolute; left: 50%; top: 10px; padding: 0 4px; color: var(--purple); background: #fff; font-size: 6px; font-weight: 800; letter-spacing: .18em; transform: translateX(-50%); }
-.round-stamp b { color: var(--pink); font-family: var(--serif); font-size: 23px; font-style: italic; font-weight: 400; }
+.round-stamp::after { content: "PF"; position: relative; z-index: 2; display: block; color: var(--pink); font-family: var(--serif); font-size: 23px; font-style: italic; font-weight: 400; line-height: 1; }
+.round-stamp b { display: none; }
 
 .profile-dialog { width: min(760px, calc(100% - 34px)); max-height: 92vh; padding: 0; border: 0; color: #fff; background: transparent; overflow: visible; }
 .profile-dialog::backdrop { background: rgba(27,11,28,.86); backdrop-filter: blur(9px); }

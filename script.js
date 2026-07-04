@@ -214,15 +214,12 @@ const ratingInput = document.querySelector('#review-rating');
 const starButtons = [...document.querySelectorAll('.star-button')];
 
 if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
-  const storageKey = 'patrycja-florczak-reviews';
+  const config = window.SUPABASE_CONFIG;
+  const reviewsDatabase = window.supabase && config
+    ? window.supabase.createClient(config.url, config.publishableKey)
+    : null;
+  const submitButton = reviewForm.querySelector('button[type="submit"]');
   let reviews = [];
-
-  try {
-    const savedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(savedReviews)) reviews = savedReviews;
-  } catch (_) {
-    reviews = [];
-  }
 
   const opinionLabel = (count) => {
     if (count === 1) return '1 opinia';
@@ -232,22 +229,27 @@ if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
     return `${count} opinii`;
   };
 
+  const renderMessage = (titleText, noteText) => {
+    reviewsList.replaceChildren();
+    const empty = document.createElement('div');
+    empty.className = 'reviews-empty';
+    const icon = document.createElement('span');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = '✦';
+    const title = document.createElement('strong');
+    title.textContent = titleText;
+    const note = document.createElement('p');
+    note.textContent = noteText;
+    empty.append(icon, title, note);
+    reviewsList.appendChild(empty);
+  };
+
   const renderReviews = () => {
     reviewsList.replaceChildren();
     reviewsCount.textContent = opinionLabel(reviews.length);
 
     if (!reviews.length) {
-      const empty = document.createElement('div');
-      empty.className = 'reviews-empty';
-      const icon = document.createElement('span');
-      icon.setAttribute('aria-hidden', 'true');
-      icon.textContent = '✦';
-      const title = document.createElement('strong');
-      title.textContent = 'Tu pojawi się pierwsza opinia';
-      const note = document.createElement('p');
-      note.textContent = 'Podziel się swoim doświadczeniem za pomocą formularza.';
-      empty.append(icon, title, note);
-      reviewsList.appendChild(empty);
+      renderMessage('Tu pojawi się pierwsza opinia', 'Podziel się swoim doświadczeniem za pomocą formularza.');
       return;
     }
 
@@ -276,6 +278,37 @@ if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
     });
   };
 
+  const loadReviews = async () => {
+    if (!reviewsDatabase) {
+      reviewsCount.textContent = '—';
+      renderMessage('Opinie są chwilowo niedostępne', 'Spróbuj ponownie za kilka minut.');
+      return;
+    }
+
+    reviewsCount.textContent = 'Wczytywanie…';
+    renderMessage('Wczytuję opinie', 'To potrwa tylko chwilę.');
+
+    const { data, error } = await reviewsDatabase
+      .from('reviews')
+      .select('id, name, text, rating, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      reviewsCount.textContent = '—';
+      renderMessage('Nie udało się wczytać opinii', 'Spróbuj ponownie za kilka minut.');
+      return;
+    }
+
+    reviews = data.map((review) => ({
+      id: review.id,
+      name: review.name,
+      text: review.text,
+      rating: review.rating,
+      createdAt: review.created_at
+    }));
+    renderReviews();
+  };
+
   const setRating = (rating) => {
     ratingInput.value = String(rating);
     starButtons.forEach((button) => {
@@ -291,7 +324,7 @@ if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
     button.addEventListener('click', () => setRating(Number(button.dataset.rating)));
   });
 
-  reviewForm.addEventListener('submit', (event) => {
+  reviewForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = reviewForm.elements.name.value.trim();
     const text = reviewForm.elements.text.value.trim();
@@ -303,19 +336,33 @@ if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
       return;
     }
 
-    reviews.unshift({ name, text, rating, createdAt: new Date().toISOString() });
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(reviews));
-    } catch (_) {
-      // Opinia nadal pojawi się w bieżącej sesji, nawet jeśli zapis lokalny jest niedostępny.
+    if (!reviewsDatabase) {
+      reviewStatus.textContent = 'Nie udało się połączyć z bazą opinii. Spróbuj ponownie później.';
+      reviewStatus.classList.add('is-error');
+      return;
     }
 
-    renderReviews();
+    if (submitButton) submitButton.disabled = true;
+    reviewStatus.textContent = 'Wysyłanie opinii…';
+    reviewStatus.classList.remove('is-error');
+
+    const { error } = await reviewsDatabase
+      .from('reviews')
+      .insert({ name, text, rating });
+
+    if (submitButton) submitButton.disabled = false;
+
+    if (error) {
+      reviewStatus.textContent = 'Nie udało się wysłać opinii. Spróbuj ponownie.';
+      reviewStatus.classList.add('is-error');
+      return;
+    }
+
     reviewForm.reset();
     setRating(0);
-    reviewStatus.textContent = 'Dziękuję! Twoja opinia została dodana.';
+    reviewStatus.textContent = 'Dziękuję! Opinia została wysłana i czeka na zatwierdzenie.';
     reviewStatus.classList.remove('is-error');
   });
 
-  renderReviews();
+  loadReviews();
 }
