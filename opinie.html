@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Opinie klientek Patrycji Florczak oraz formularz dodawania własnej oceny.">
+  <title>Opinie | Patrycja Florczak</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="reviews-page">
+  <div class="page-glow page-glow--one" aria-hidden="true"></div>
+  <div class="page-glow page-glow--two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Patrycja Florczak - strona główna">
+      <span class="brand-mark">PF</span>
+      <span class="brand-text">Patrycja Florczak<small>Makeup artist</small></span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Otwórz menu</span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Główna nawigacja">
+      <a href="index.html">O mnie</a>
+      <a href="makijaze.html">Moje makijaże</a>
+      <a class="active" href="opinie.html" aria-current="page">Opinie</a>
+      <a href="index.html#certyfikaty">Certyfikaty</a>
+      <a class="nav-contact" href="kontakt.html">Kontakt <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main class="reviews-main section-shell">
+    <section class="page-heading reveal">
+      <p class="eyebrow"><span></span> Wasze doświadczenia</p>
+      <h1>Wasze <em>opinie.</em></h1>
+      <p>Twoja opinia jest dla mnie bardzo ważna. Wybierz ocenę, wpisz imię i napisz kilka słów o swojej wizycie.</p>
+    </section>
+
+    <section class="reviews-layout">
+      <div class="review-form-panel reveal">
+        <p class="eyebrow"><span></span> Dodaj opinię</p>
+        <h2>Jak wspominasz nasze spotkanie?</h2>
+        <form id="review-form">
+          <div class="form-field">
+            <label for="review-name">Twoje imię</label>
+            <input id="review-name" name="name" type="text" maxlength="40" autocomplete="name" placeholder="Np. Natalia" required>
+          </div>
+
+          <fieldset class="rating-field">
+            <legend>Twoja ocena</legend>
+            <div class="star-rating" role="group" aria-label="Wybierz ocenę od 1 do 5 gwiazdek">
+              <button type="button" class="star-button" data-rating="1" aria-label="1 gwiazdka" aria-pressed="false">★</button>
+              <button type="button" class="star-button" data-rating="2" aria-label="2 gwiazdki" aria-pressed="false">★</button>
+              <button type="button" class="star-button" data-rating="3" aria-label="3 gwiazdki" aria-pressed="false">★</button>
+              <button type="button" class="star-button" data-rating="4" aria-label="4 gwiazdki" aria-pressed="false">★</button>
+              <button type="button" class="star-button" data-rating="5" aria-label="5 gwiazdek" aria-pressed="false">★</button>
+            </div>
+            <input id="review-rating" name="rating" type="hidden" value="">
+          </fieldset>
+
+          <div class="form-field">
+            <label for="review-text">Treść opinii</label>
+            <textarea id="review-text" name="text" maxlength="600" rows="6" placeholder="Napisz, co podobało Ci się najbardziej..." required></textarea>
+          </div>
+
+          <p class="privacy-note">Podajesz tylko imię - bez adresu e-mail i numeru telefonu.</p>
+          <button class="button button--primary" type="submit">Dodaj opinię <span aria-hidden="true">↗</span></button>
+          <p class="form-status" id="review-status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="reviews-list-panel reveal reveal--delay">
+        <div class="reviews-list-heading">
+          <div>
+            <p class="eyebrow"><span></span> Opinie klientek</p>
+            <h2>Wasze słowa</h2>
+          </div>
+          <span class="reviews-count" id="reviews-count">0 opinii</span>
+        </div>
+        <div class="reviews-list" id="reviews-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="index.html">
+      <span class="brand-mark">PF</span>
+      <span class="brand-text">Patrycja Florczak<small>Makeup artist</small></span>
+    </a>
+    <p>Makijaż tworzony z pasją i wyczuciem.</p>
+    <p class="copyright">© <span data-current-year>2026</span> Patrycja Florczak</p>
+  </footer>
+</body>
+</html>

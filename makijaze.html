@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio makijaży Patrycji Florczak - makijaże ślubne, wieczorowe, okolicznościowe i kreatywne.">
+  <title>Moje makijaże | Patrycja Florczak</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="portfolio-page">
+  <div class="page-glow page-glow--one" aria-hidden="true"></div>
+  <div class="page-glow page-glow--two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Patrycja Florczak - strona główna">
+      <span class="brand-mark">PF</span>
+      <span class="brand-text">Patrycja Florczak<small>Makeup artist</small></span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Otwórz menu</span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Główna nawigacja">
+      <a href="index.html">O mnie</a>
+      <a class="active" href="makijaze.html" aria-current="page">Moje makijaże</a>
+      <a href="opinie.html">Opinie</a>
+      <a href="index.html#certyfikaty">Certyfikaty</a>
+      <a class="nav-contact" href="kontakt.html">Kontakt <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main class="portfolio-main section-shell">
+    <section class="page-heading reveal">
+      <p class="eyebrow"><span></span> Portfolio</p>
+      <h1>Moje <em>makijaże.</em></h1>
+      <p>Wybierz kategorię, aby zobaczyć wszystkie zdjęcia danego makijażu.</p>
+    </section>
+
+    <section class="portfolio-categories" aria-label="Kategorie makijaży">
+      <button class="portfolio-card reveal" type="button" data-category="slubny">
+        <img src="assets/galeria/thumbs/slubny-1.webp" alt="Makijaż ślubny" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>01 · 9 zdjęć</small><strong>Makijaż ślubny</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal reveal--delay" type="button" data-category="glamour">
+        <img src="assets/galeria/thumbs/glamour-1.webp" alt="Makijaż wieczorowy glamour" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>02 · 3 zdjęcia</small><strong>Makijaż Wieczorowy GLAMOUR</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal reveal--delay-2" type="button" data-category="smoky-eye">
+        <img src="assets/galeria/thumbs/smoky-eye-1.webp" alt="Makijaż smoky eye" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>03 · 3 zdjęcia</small><strong>Makijaż Smoky Eye</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal" type="button" data-category="kreatywny">
+        <img src="assets/galeria/thumbs/kreatywny-1.webp" alt="Makijaż kreatywny" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>04 · 3 zdjęcia</small><strong>Makijaż Kreatywny</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal reveal--delay" type="button" data-category="nude-glam">
+        <img src="assets/galeria/thumbs/nude-glam-1.webp" alt="Makijaż nude glam" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>05 · 3 zdjęcia</small><strong>Makijaż NUDE GLAM</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal reveal--delay-2" type="button" data-category="dojrzaly">
+        <img src="assets/galeria/thumbs/dojrzaly-1.webp" alt="Makijaż cery dojrzałej" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>06 · 3 zdjęcia</small><strong>Makijaż dojrzały</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+      <button class="portfolio-card reveal" type="button" data-category="okolicznosciowy">
+        <img src="assets/galeria/thumbs/okolicznosciowy-1.webp" alt="Makijaż okolicznościowy" loading="lazy">
+        <span class="portfolio-card-shade"></span>
+        <span class="portfolio-card-content"><small>07 · 3 zdjęcia</small><strong>Makijaż okolicznościowy</strong><span>Zobacz galerię ↗</span></span>
+      </button>
+    </section>
+  </main>
+
+  <dialog class="portfolio-dialog" id="portfolio-dialog" aria-labelledby="portfolio-dialog-title">
+    <button class="dialog-close" type="button" aria-label="Zamknij galerię">×</button>
+    <div class="dialog-inner">
+      <header>
+        <p class="eyebrow"><span></span> Realizacja makijażu</p>
+        <h2 id="portfolio-dialog-title"></h2>
+        <p class="academy-note"><span aria-hidden="true">✦</span> Makijaż został wykonany w <strong>PRO MAKEUP ACADEMY</strong>.</p>
+      </header>
+      <div class="portfolio-viewer" aria-live="polite">
+        <button class="gallery-arrow gallery-arrow--prev" type="button" aria-label="Poprzednie zdjęcie">‹</button>
+        <figure class="gallery-main-image">
+          <img id="portfolio-main-image" src="" alt="">
+          <button class="gallery-zoom" type="button" aria-label="Przybliż twarz" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5M10.8 7.8v6M7.8 10.8h6"></path></svg>
+            <span data-zoom-label>Przybliż twarz</span>
+          </button>
+          <figcaption><span id="portfolio-image-counter">1 / 3</span></figcaption>
+        </figure>
+        <button class="gallery-arrow gallery-arrow--next" type="button" aria-label="Następne zdjęcie">›</button>
+      </div>
+      <div class="portfolio-thumbnails" id="portfolio-thumbnails" aria-label="Miniatury zdjęć"></div>
+      <p class="keyboard-hint"><span aria-hidden="true">←</span> Użyj strzałek na klawiaturze <span aria-hidden="true">→</span></p>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="index.html">
+      <span class="brand-mark">PF</span>
+      <span class="brand-text">Patrycja Florczak<small>Makeup artist</small></span>
+    </a>
+    <p>Makijaż tworzony z pasją i wyczuciem.</p>
+    <p class="copyright">© <span data-current-year>2026</span> Patrycja Florczak</p>
+  </footer>
+</body>
+</html>
