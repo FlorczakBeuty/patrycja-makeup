@@ -214,6 +214,12 @@ const ratingInput = document.querySelector('#review-rating');
 const starButtons = [...document.querySelectorAll('.star-button')];
 
 if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
+  try {
+    localStorage.removeItem('patrycja-florczak-reviews');
+  } catch (_) {
+    // Stary zapis lokalny może być niedostępny w trybie prywatnym.
+  }
+
   const config = window.SUPABASE_CONFIG;
   const reviewsDatabase = window.supabase && config
     ? window.supabase.createClient(config.url, config.publishableKey)
@@ -353,6 +359,7 @@ if (reviewForm && reviewsList && reviewsCount && reviewStatus && ratingInput) {
     if (submitButton) submitButton.disabled = false;
 
     if (error) {
+      console.error('Nie udało się wysłać opinii do Supabase:', error);
       reviewStatus.textContent = 'Nie udało się wysłać opinii. Spróbuj ponownie.';
       reviewStatus.classList.add('is-error');
       return;
